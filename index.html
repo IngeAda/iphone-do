@@ -456,7 +456,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 .edit-modal-sheet {
   background: var(--white);
-  width: 375px;
+  width: 100%;
   border-radius: 20px 20px 0 0;
   padding: 20px 20px 40px;
   transform: translateY(100%);
@@ -615,7 +615,7 @@ input[type="range"]::-webkit-slider-thumb {
 .duration-unit { font-size: 14px; color: var(--muted); }
 
 /* ===== C1: TUTORING ===== */
-#c1 { padding: 0; overflow: hidden; }
+#c1 { padding: 0; overflow-y: auto; }
 
 .c1-status-bar {
   background: var(--white);
@@ -731,8 +731,9 @@ input[type="range"]::-webkit-slider-thumb {
 /* ===== C2: STAGNATION OVERLAY ===== */
 #c2-overlay {
   position: fixed;
-  inset: 0;
-  width: 375px;
+  width: 100%;
+  max-width: 450px;
+  height: 100vh;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -751,7 +752,8 @@ input[type="range"]::-webkit-slider-thumb {
 .c2-card {
   background: var(--white);
   border-radius: var(--radius);
-  width: 300px;
+  width: calc(100% - 40px);
+  max-width: 300px;
   padding: 20px;
   position: relative;
   border-top: 3px solid var(--orange);
@@ -776,8 +778,9 @@ input[type="range"]::-webkit-slider-thumb {
 /* ===== C3: PHRASE SHEET ===== */
 #c3-sheet {
   position: fixed;
-  inset: 0;
-  width: 375px;
+  width: 100%;
+  max-width: 450px;
+  height: 100vh;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -794,7 +797,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 .c3-card {
   background: var(--white);
-  width: 375px;
+  width: 100%;
   border-radius: 20px 20px 0 0;
   padding: 16px 20px 40px;
   transform: translateY(100%);
@@ -1142,7 +1145,8 @@ input[type="range"]::-webkit-slider-thumb {
   top: -60px;
   left: 50%;
   transform: translateX(-50%);
-  width: 340px;
+  width: calc(100% - 40px);
+  max-width: 340px;
   background: var(--dark);
   color: #fff;
   border-radius: 12px;
@@ -1175,7 +1179,7 @@ input[type="range"]::-webkit-slider-thumb {
   <div class="brand-name">Calm Wave</div>
   <div class="brand-subtitle">作业辅导情绪干预系统</div>
   <div class="a1-gap"></div>
-  <button class="btn-primary" style="width:280px" onclick="showPage('a2')">开始使用</button>
+  <button class="btn-primary" style="width:min(280px, 80%)" onclick="showPage('a2')">开始使用</button>
   <div class="version-text">v1.0.0 · Beta</div>
 </div>
 
@@ -1197,7 +1201,7 @@ input[type="range"]::-webkit-slider-thumb {
   </div>
   <div class="q-footer">
     <button class="q-next-btn disabled" id="q-next-btn" onclick="nextQuestion()">下一题</button>
-    <div class="skip-link" onclick="showPage('a3')">跳过问卷测试</div>
+    <div class="skip-link" onclick="skipQuestionnaire()">跳过问卷测试</div>
   </div>
 </div>
 
@@ -1239,7 +1243,7 @@ input[type="range"]::-webkit-slider-thumb {
   <div class="settings-content">
     <div class="settings-group">
       <div class="settings-group-label">账户</div>
-      <div class="settings-row" onclick="">
+      <div class="settings-row" onclick="showA2From('a4')">
         <span class="settings-row-label">家长类型重新校准</span>
         <div class="settings-right"><span class="chevron">›</span></div>
       </div>
@@ -1255,7 +1259,7 @@ input[type="range"]::-webkit-slider-thumb {
         <input type="range" min="30" max="180" value="90" id="threshold-slider"
           oninput="document.getElementById('threshold-value').textContent=this.value+'秒'">
       </div>
-      <div class="settings-row" onclick="">
+      <div class="settings-row" onclick="showToast('该功能正在开发中', 'orange')">
         <span class="settings-row-label">话语触发频率</span>
         <div class="settings-right"><span class="chevron">›</span></div>
       </div>
@@ -1289,7 +1293,7 @@ input[type="range"]::-webkit-slider-thumb {
 
     <div class="settings-group">
       <div class="settings-group-label">历史记录</div>
-      <div class="settings-row" onclick="">
+      <div class="settings-row" onclick="showD2From('a4')">
         <span class="settings-row-label">查看辅导记录</span>
         <div class="settings-right"><span class="chevron">›</span></div>
       </div>
@@ -1320,42 +1324,8 @@ input[type="range"]::-webkit-slider-thumb {
     <div class="b1-title">今日作业</div>
     <button class="gear-btn" onclick="showPage('a4')">⚙</button>
   </div>
-  <div class="b1-date">3月26日 星期四</div>
-  <div class="subject-cards">
-    <div class="subject-card">
-      <div class="subject-color-bar" style="background:#124275"></div>
-      <div class="subject-info">
-        <div class="subject-name">语文</div>
-        <div class="subject-desc">第3题 · 解析句子</div>
-        <div class="subject-meta">
-          <span class="difficulty-badge diff-hard">较难</span>
-          <span class="subject-time">约20分钟</span>
-        </div>
-      </div>
-    </div>
-    <div class="subject-card">
-      <div class="subject-color-bar" style="background:#F5A623"></div>
-      <div class="subject-info">
-        <div class="subject-name">数学</div>
-        <div class="subject-desc">计算题 × 4</div>
-        <div class="subject-meta">
-          <span class="difficulty-badge diff-medium">一般</span>
-          <span class="subject-time">约15分钟</span>
-        </div>
-      </div>
-    </div>
-    <div class="subject-card">
-      <div class="subject-color-bar" style="background:#1D9E75"></div>
-      <div class="subject-info">
-        <div class="subject-name">英语</div>
-        <div class="subject-desc">单词默写 × 10</div>
-        <div class="subject-meta">
-          <span class="difficulty-badge diff-easy">简单</span>
-          <span class="subject-time">约10分钟</span>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="b1-date" id="b1-date"></div>
+  <div class="subject-cards" id="subject-cards"></div>
   <div class="b1-footer">
     <button class="btn-secondary" onclick="showPage('b2')" style="flex:1">＋ 添加作业</button>
     <button class="btn-primary" onclick="showPage('c1')" style="flex:1">开始辅导</button>
@@ -1405,7 +1375,7 @@ input[type="range"]::-webkit-slider-thumb {
         <button class="form-pill disabled">📷 拍照识别</button>
       </div>
     </div>
-    <button class="btn-primary" onclick="showPage('b1')">保存作业</button>
+    <button class="btn-primary" onclick="saveHomework()">保存作业</button>
   </div>
 </div>
 
@@ -1424,30 +1394,12 @@ input[type="range"]::-webkit-slider-thumb {
   <div class="c1-body">
     <div class="task-card" id="task-card">
       <div class="stagnation-dot" id="stagnation-dot"></div>
-      <div class="task-tag">语文 · 第3题</div>
-      <div class="task-title">解析「山行」首句结构</div>
-      <div class="task-steps">
-        <div class="task-step">
-          <span class="step-icon step-done">✓</span>
-          <span class="step-text-done">划分主谓宾</span>
-        </div>
-        <div class="task-step">
-          <span class="step-icon step-active">◉</span>
-          <span class="step-text-active">标注修饰成分</span>
-        </div>
-      </div>
+      <div class="task-tag" id="task-tag"></div>
+      <div class="task-title" id="task-title"></div>
+      <div class="task-steps" id="task-steps"></div>
     </div>
   </div>
-  <div class="collapsed-subjects">
-    <div class="collapsed-pill">
-      <span class="collapsed-pill-name">数学</span>
-      <span class="chevron" style="color:var(--muted)">›</span>
-    </div>
-    <div class="collapsed-pill">
-      <span class="collapsed-pill-name">英语</span>
-      <span class="chevron" style="color:var(--muted)">›</span>
-    </div>
-  </div>
+  <div class="collapsed-subjects" id="collapsed-subjects"></div>
   <div class="c1-end-row">
     <span class="end-link" onclick="showPage('d1')">结束辅导 →</span>
   </div>
@@ -1484,15 +1436,14 @@ input[type="range"]::-webkit-slider-thumb {
   <div class="c4-watch-banner">⌚ Watch 已检测到情绪升级</div>
   <div class="c4-center">
     <div class="c4-emoji">🌿</div>
-    <div class="c4-main">稍作休息
-一下</div>
+    <div class="c4-main">稍作休息一下</div>
     <div class="c4-sub">当前进度已保存，可以先离开</div>
     <div class="c4-progress-card">
-      <div class="c4-progress-label">语文 进度</div>
+      <div class="c4-progress-label" id="c4-progress-label">语文 进度</div>
       <div class="c4-progress-bar">
-        <div class="c4-progress-fill"></div>
+        <div class="c4-progress-fill" id="c4-progress-fill"></div>
       </div>
-      <div style="font-size:13px;color:var(--orange);margin-top:6px;font-weight:600">55%</div>
+      <div id="c4-pct" style="font-size:13px;color:var(--orange);margin-top:6px;font-weight:600">0%</div>
     </div>
   </div>
   <div class="c4-footer">
@@ -1525,8 +1476,8 @@ input[type="range"]::-webkit-slider-thumb {
     </div>
   </div>
   <div class="c6-progress-label">当前进度</div>
-  <div class="c6-progress-text">语文 · 55%</div>
-  <div class="c6-progress-bar"><div class="c6-progress-fill"></div></div>
+  <div class="c6-progress-text" id="c6-progress-text">--</div>
+  <div class="c6-progress-bar"><div class="c6-progress-fill" id="c6-progress-fill"></div></div>
   <div class="c6-status-chip">
     <div class="c6-chip-dot"></div>
     🖥️ 装置已开启儿童安抚模式
@@ -1546,11 +1497,11 @@ input[type="range"]::-webkit-slider-thumb {
     </div>
     <div class="stat-cards">
       <div class="stat-card">
-        <div class="stat-value">88%</div>
+        <div class="stat-value" id="d1-rate">--</div>
         <div class="stat-label">完成率</div>
       </div>
       <div class="stat-card">
-        <div class="stat-value">42</div>
+        <div class="stat-value" id="d1-time">--</div>
         <div class="stat-label">总用时（分钟）</div>
       </div>
     </div>
@@ -1558,26 +1509,26 @@ input[type="range"]::-webkit-slider-thumb {
       <div class="info-card-title">介入记录</div>
       <div class="intervention-row">
         <span>话语替代</span>
-        <span class="intervention-count">× 2 次</span>
+        <span class="intervention-count" id="d1-phrase-count">× 0 次</span>
       </div>
       <div class="intervention-row">
         <span>临界触发</span>
-        <span class="intervention-count">× 1 次</span>
+        <span class="intervention-count" id="d1-critical-count">× 0 次</span>
       </div>
       <div class="intervention-row">
         <span>呼吸引导</span>
-        <span class="intervention-count">× 1 次</span>
+        <span class="intervention-count" id="d1-breath-count">× 0 次</span>
       </div>
     </div>
     <div class="emotion-card">
       <div class="emotion-header">
         <div class="emotion-title">情绪压力评估</div>
-        <span class="emotion-badge">低</span>
+        <span class="emotion-badge" id="d1-emotion">低</span>
       </div>
-      <div class="emotion-desc">整体辅导氛围良好</div>
+      <div class="emotion-desc" id="d1-emotion-desc">整体辅导氛围良好</div>
     </div>
     <div class="d1-footer">
-      <button class="btn-secondary" onclick="showPage('d2')">查看历史记录</button>
+      <button class="btn-secondary" onclick="showD2From('d1')">查看历史记录</button>
       <button class="btn-primary" onclick="endSession()">完成，关闭系统</button>
     </div>
   </div>
@@ -1586,7 +1537,7 @@ input[type="range"]::-webkit-slider-thumb {
 <!-- ===== PAGE D2: HISTORY ===== -->
 <div id="d2" class="page">
   <div class="page-header">
-    <button class="back-btn" onclick="showPage('d1')">← 返回</button>
+    <button class="back-btn" onclick="showPage(d2BackPage)">← 返回</button>
     <span class="title-center">辅导历史</span>
     <div style="width:44px"></div>
   </div>
@@ -1656,15 +1607,6 @@ function showPage(id) {
   }, 150);
 }
 
-function onPageEnter(id) {
-  if (id === 'a2') initQuestionnaire();
-  if (id === 'a5') renderPhraseList();
-  if (id === 'c1') startSessionTimer();
-  if (id === 'c5') startBreathing();
-  if (id === 'c6') startC6Timer();
-  if (id === 'd2') renderHistory();
-}
-
 // ===== QUESTIONNAIRE =====
 const QUESTIONS = [
   {
@@ -1725,7 +1667,9 @@ function nextQuestion() {
     currentQ++;
     renderQuestion();
   } else {
-    showPage('a3');
+    const dest = a2ReturnPage;
+    a2ReturnPage = 'a3';
+    showPage(dest);
   }
 }
 
@@ -1892,8 +1836,13 @@ function hideC2() {
 
 // ===== C3: PHRASE SHEET =====
 function showC3() {
-  // Randomly pick 2 phrases
-  const shuffled = [...PHRASES].sort(() => Math.random() - 0.5).slice(0, 2);
+  if (PHRASES.length === 0) {
+    showToast('话语库为空，请先在设置中添加句式', 'orange');
+    return;
+  }
+  sessionInterventions.phrase++;
+  // Randomly pick up to 3 phrases
+  const shuffled = [...PHRASES].sort(() => Math.random() - 0.5).slice(0, 3);
   const container = document.getElementById('c3-phrases');
   container.innerHTML = '';
   shuffled.forEach(p => {
@@ -2030,6 +1979,7 @@ function c5DrawRipples() {
 }
 
 function startBreathing() {
+  sessionInterventions.breathing++;
   if (breathInterval) clearInterval(breathInterval);
   breathRound = 1;
   breathPhaseIdx = 0;
@@ -2142,6 +2092,9 @@ function returnFromC6() {
 
 function endSession() {
   stopSessionTimer();
+  sessionSeconds = 0;
+  sessionInterventions = { phrase: 0, critical: 0, breathing: 0 };
+  c1InitState();
   showPage('a1');
 }
 
@@ -2162,38 +2115,10 @@ function showToast(text, type) {
 
 // ===== HISTORY =====
 const HISTORY_DATA = [
-  {
-    date: '3月25日 星期三',
-    rate: 92,
-    interventions: 2,
-    duration: '38分钟',
-    subjects: '语文 · 数学 · 英语',
-    types: '话语替代 × 2'
-  },
-  {
-    date: '3月24日 星期二',
-    rate: 78,
-    interventions: 4,
-    duration: '51分钟',
-    subjects: '数学 · 英语',
-    types: '话语替代 × 2，临界触发 × 1，呼吸引导 × 1'
-  },
-  {
-    date: '3月22日 星期日',
-    rate: 88,
-    interventions: 1,
-    duration: '42分钟',
-    subjects: '语文 · 数学',
-    types: '话语替代 × 1'
-  },
-  {
-    date: '3月20日 星期五',
-    rate: 95,
-    interventions: 0,
-    duration: '35分钟',
-    subjects: '语文 · 英语',
-    types: '无介入'
-  }
+  { date: getDayStr(1), rate: 92, interventions: 2, duration: '38分钟', subjects: '语文 · 数学 · 英语', types: '话语替代 × 2' },
+  { date: getDayStr(2), rate: 78, interventions: 4, duration: '51分钟', subjects: '数学 · 英语',       types: '话语替代 × 2，临界触发 × 1，呼吸引导 × 1' },
+  { date: getDayStr(4), rate: 88, interventions: 1, duration: '42分钟', subjects: '语文 · 数学',       types: '话语替代 × 1' },
+  { date: getDayStr(6), rate: 95, interventions: 0, duration: '35分钟', subjects: '语文 · 英语',       types: '无介入' }
 ];
 
 let historyExpanded = {};
@@ -2229,23 +2154,277 @@ function toggleHistory(idx) {
   renderHistory();
 }
 
-// ===== WATCH TOAST on C4 entry via demo =====
-// When showing c4 from c1, show watch toast
-const origShowPage = showPage;
-// Override c4 entry
-const _originalOnPageEnter = onPageEnter;
-// Patch to show toast when entering c4
+// ===== DATE HELPERS =====
+function getDayStr(daysAgo) {
+  const d = new Date();
+  d.setDate(d.getDate() - daysAgo);
+  const days = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+  return `${d.getMonth()+1}月${d.getDate()}日 ${days[d.getDay()]}`;
+}
+
+// ===== B1 HOMEWORK DATA =====
+const SUBJECT_COLORS = { '语文':'#124275', '数学':'#F5A623', '英语':'#1D9E75', '其他':'#999' };
+const DIFF_CLASSES = { '简单':'diff-easy', '一般':'diff-medium', '较难':'diff-hard' };
+
+let B1_HOMEWORK = [
+  { name:'语文', desc:'第3题 · 解析句子', difficulty:'较难', time:'20' },
+  { name:'数学', desc:'计算题 × 4',       difficulty:'一般', time:'15' },
+  { name:'英语', desc:'单词默写 × 10',    difficulty:'简单', time:'10' }
+];
+
+function renderB1() {
+  const dateEl = document.getElementById('b1-date');
+  if (dateEl) dateEl.textContent = getDayStr(0);
+  const container = document.getElementById('subject-cards');
+  if (!container) return;
+  container.innerHTML = '';
+  if (B1_HOMEWORK.length === 0) {
+    container.innerHTML = '<div style="text-align:center;color:var(--muted);padding:32px;font-size:14px">暂无作业，点击下方添加</div>';
+    return;
+  }
+  B1_HOMEWORK.forEach(hw => {
+    const color = SUBJECT_COLORS[hw.name] || '#999';
+    const diffClass = DIFF_CLASSES[hw.difficulty] || 'diff-easy';
+    const card = document.createElement('div');
+    card.className = 'subject-card';
+    card.onclick = () => showPage('c1');
+    card.innerHTML = `
+      <div class="subject-color-bar" style="background:${color}"></div>
+      <div class="subject-info">
+        <div class="subject-name">${hw.name}</div>
+        <div class="subject-desc">${hw.desc}</div>
+        <div class="subject-meta">
+          <span class="difficulty-badge ${diffClass}">${hw.difficulty}</span>
+          <span class="subject-time">约${hw.time}分钟</span>
+        </div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function saveHomework() {
+  const subjectEl = document.querySelector('#subject-pills .form-pill.active');
+  const diffEl = document.querySelector('#difficulty-pills .form-pill.active');
+  const desc = document.querySelector('#b2 .form-textarea').value.trim();
+  const time = document.querySelector('.duration-input').value || '20';
+  const name = subjectEl ? subjectEl.textContent.trim() : '语文';
+  const difficulty = diffEl ? diffEl.textContent.trim() : '简单';
+  B1_HOMEWORK.push({ name, desc: desc || name + ' 作业', difficulty, time });
+  showToast('作业已添加', 'green');
+  showPage('b1');
+}
+
+function resetB2Form() {
+  document.querySelectorAll('#subject-pills .form-pill').forEach((p, i) => p.classList.toggle('active', i === 0));
+  document.querySelectorAll('#difficulty-pills .form-pill').forEach((p, i) => p.classList.toggle('active', i === 0));
+  document.querySelectorAll('#entry-pills .form-pill:not(.disabled)').forEach((p, i) => p.classList.toggle('active', i === 0));
+  const ta = document.querySelector('#b2 .form-textarea');
+  if (ta) ta.value = '';
+  const dur = document.querySelector('.duration-input');
+  if (dur) dur.value = '20';
+}
+
+// ===== A2 RETURN PAGE =====
+let a2ReturnPage = 'a3';
+function showA2From(from) {
+  a2ReturnPage = from;
+  showPage('a2');
+}
+function skipQuestionnaire() {
+  const dest = a2ReturnPage;
+  a2ReturnPage = 'a3';
+  showPage(dest);
+}
+
+// ===== INTERVENTION TRACKING =====
+let sessionInterventions = { phrase: 0, critical: 0, breathing: 0 };
+
+// ===== D1 SUMMARY =====
+function renderD1() {
+  const mins = Math.max(1, Math.round(sessionSeconds / 60));
+  const total = Object.values(c1StepsDone).reduce((sum, arr) => sum + arr.length, 0);
+  const done  = Object.values(c1StepsDone).reduce((sum, arr) => sum + arr.filter(Boolean).length, 0);
+  const rate  = total ? Math.round((done / total) * 100) : 0;
+
+  const rateEl = document.getElementById('d1-rate');
+  const timeEl = document.getElementById('d1-time');
+  if (rateEl) rateEl.textContent = rate + '%';
+  if (timeEl) timeEl.textContent = mins;
+
+  const phraseEl   = document.getElementById('d1-phrase-count');
+  const criticalEl = document.getElementById('d1-critical-count');
+  const breathEl   = document.getElementById('d1-breath-count');
+  if (phraseEl)   phraseEl.textContent   = '× ' + sessionInterventions.phrase   + ' 次';
+  if (criticalEl) criticalEl.textContent = '× ' + sessionInterventions.critical + ' 次';
+  if (breathEl)   breathEl.textContent   = '× ' + sessionInterventions.breathing + ' 次';
+
+  // Emotion assessment based on critical count
+  const emotionEl = document.getElementById('d1-emotion');
+  const descEl    = document.getElementById('d1-emotion-desc');
+  if (sessionInterventions.critical >= 2) {
+    if (emotionEl) { emotionEl.textContent = '高'; emotionEl.style.background = 'rgba(229,62,62,0.12)'; emotionEl.style.color = '#e53e3e'; }
+    if (descEl) descEl.textContent = '辅导过程压力较大，建议调整节奏';
+  } else if (sessionInterventions.critical === 1 || sessionInterventions.phrase >= 2) {
+    if (emotionEl) { emotionEl.textContent = '中'; emotionEl.style.background = 'rgba(245,166,35,0.12)'; emotionEl.style.color = 'var(--orange)'; }
+    if (descEl) descEl.textContent = '偶有情绪波动，整体可控';
+  } else {
+    if (emotionEl) { emotionEl.textContent = '低'; emotionEl.style.background = ''; emotionEl.style.color = ''; }
+    if (descEl) descEl.textContent = '整体辅导氛围良好';
+  }
+}
+
+// ===== C4 / C6 PROGRESS UPDATE =====
+function updateC4Progress() {
+  const done  = c1StepsDone[c1ActiveSubject]?.filter(Boolean).length || 0;
+  const total = c1StepsDone[c1ActiveSubject]?.length || 1;
+  const pct   = Math.round((done / total) * 100);
+  const labelEl = document.getElementById('c4-progress-label');
+  const fillEl  = document.getElementById('c4-progress-fill');
+  const pctEl   = document.getElementById('c4-pct');
+  if (labelEl) labelEl.textContent = c1ActiveSubject + ' 进度';
+  if (fillEl)  fillEl.style.width  = pct + '%';
+  if (pctEl)   pctEl.textContent   = pct + '%';
+}
+
+function updateC6Progress() {
+  const total = Object.values(c1StepsDone).reduce((sum, arr) => sum + arr.length, 0);
+  const done  = Object.values(c1StepsDone).reduce((sum, arr) => sum + arr.filter(Boolean).length, 0);
+  const pct   = total ? Math.round((done / total) * 100) : 0;
+  const textEl = document.getElementById('c6-progress-text');
+  const fillEl = document.getElementById('c6-progress-fill');
+  if (textEl) textEl.textContent = c1ActiveSubject + ' · ' + pct + '%';
+  if (fillEl) fillEl.style.width = pct + '%';
+}
+
+// ===== HISTORY NAVIGATION =====
+let d2BackPage = 'd1';
+function showD2From(from) {
+  d2BackPage = from;
+  showPage('d2');
+}
+
+// ===== PAGE ENTER HOOK =====
 function onPageEnter(id) {
+  if (id === 'b1') renderB1();
+  if (id === 'b2') resetB2Form();
   if (id === 'a2') initQuestionnaire();
   if (id === 'a5') renderPhraseList();
-  if (id === 'c1') startSessionTimer();
+  if (id === 'c1') { startSessionTimer(); renderC1(); }
   if (id === 'c4') {
     stopSessionTimer();
+    sessionInterventions.critical++;
+    updateC4Progress();
     setTimeout(() => showToast('Watch 已触发临界', 'orange'), 400);
   }
   if (id === 'c5') startBreathing();
-  if (id === 'c6') startC6Timer();
+  if (id === 'c6') { startC6Timer(); updateC6Progress(); }
+  if (id === 'd1') renderD1();
   if (id === 'd2') renderHistory();
+}
+
+// ===== C1 SUBJECT DATA & INTERACTIONS =====
+const C1_SUBJECTS = [
+  {
+    name: '语文', color: '#124275',
+    tag: '语文 · 第3题', title: '解析「山行」首句结构',
+    steps: ['划分主谓宾', '标注修饰成分', '写出完整分析']
+  },
+  {
+    name: '数学', color: '#F5A623',
+    tag: '数学 · 计算题', title: '完成 4 道计算题',
+    steps: ['第 1 题', '第 2 题', '第 3 题', '第 4 题']
+  },
+  {
+    name: '英语', color: '#1D9E75',
+    tag: '英语 · 单词默写', title: '默写 10 个单词',
+    steps: ['第 1–5 个', '第 6–10 个']
+  }
+];
+
+let c1StepsDone = {};
+let c1ActiveSubject = '语文';
+
+function c1InitState() {
+  c1StepsDone = {};
+  C1_SUBJECTS.forEach((s, si) => {
+    c1StepsDone[s.name] = s.steps.map((_, i) => si === 0 && i === 0);
+  });
+  c1ActiveSubject = '语文';
+}
+c1InitState();
+
+function renderC1() {
+  renderTaskCard();
+  renderCollapsedPills();
+  updateC1Progress();
+}
+
+function renderTaskCard() {
+  const subj = C1_SUBJECTS.find(s => s.name === c1ActiveSubject);
+  const done = c1StepsDone[c1ActiveSubject];
+  document.getElementById('task-card').style.borderTop = `3px solid ${subj.color}`;
+  document.getElementById('task-tag').textContent = subj.tag;
+  document.getElementById('task-title').textContent = subj.title;
+  const stepsEl = document.getElementById('task-steps');
+  stepsEl.innerHTML = '';
+  subj.steps.forEach((text, i) => {
+    const isDone = done[i];
+    const step = document.createElement('div');
+    step.className = 'task-step';
+    if (!isDone) step.style.cursor = 'pointer';
+    step.innerHTML = `
+      <span class="step-icon ${isDone ? 'step-done' : 'step-active'}">${isDone ? '✓' : '◉'}</span>
+      <span class="${isDone ? 'step-text-done' : 'step-text-active'}">${text}</span>
+    `;
+    if (!isDone) step.onclick = () => markStep(i);
+    stepsEl.appendChild(step);
+  });
+}
+
+function markStep(idx) {
+  c1StepsDone[c1ActiveSubject][idx] = true;
+  renderTaskCard();
+  updateC1Progress();
+  if (c1StepsDone[c1ActiveSubject].every(Boolean)) {
+    showToast(c1ActiveSubject + ' 全部完成 ✓', 'green');
+    renderCollapsedPills();
+  }
+}
+
+function renderCollapsedPills() {
+  const container = document.getElementById('collapsed-subjects');
+  container.innerHTML = '';
+  C1_SUBJECTS.filter(s => s.name !== c1ActiveSubject).forEach(subj => {
+    const done = c1StepsDone[subj.name];
+    const completedCount = done.filter(Boolean).length;
+    const totalCount = done.length;
+    const pill = document.createElement('div');
+    pill.className = 'collapsed-pill';
+    pill.onclick = () => expandSubject(subj.name);
+    pill.innerHTML = `
+      <div style="display:flex;align-items:center;gap:8px">
+        <div style="width:4px;height:20px;border-radius:2px;background:${subj.color};flex-shrink:0"></div>
+        <span class="collapsed-pill-name">${subj.name}</span>
+        ${completedCount > 0 ? `<span style="font-size:11px;color:var(--green);font-weight:600">${completedCount}/${totalCount}</span>` : ''}
+      </div>
+      <span class="chevron" style="color:var(--muted)">›</span>
+    `;
+    container.appendChild(pill);
+  });
+}
+
+function expandSubject(name) {
+  c1ActiveSubject = name;
+  renderC1();
+}
+
+function updateC1Progress() {
+  const total = Object.values(c1StepsDone).reduce((sum, arr) => sum + arr.length, 0);
+  const done = Object.values(c1StepsDone).reduce((sum, arr) => sum + arr.filter(Boolean).length, 0);
+  const pct = Math.round((done / total) * 100);
+  const fill = document.querySelector('.c1-progress-fill');
+  if (fill) fill.style.width = pct + '%';
 }
 
 // Initialize first page
